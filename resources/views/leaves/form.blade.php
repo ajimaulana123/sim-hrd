@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="bg-white shadow sm:rounded-lg">
-    <form action="{{ isset($leave) ? route('leaves.update', $leave) : route('leaves.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ isset($leave) ? secure_url(route('leaves.update', $leave)) : secure_url(route('leaves.store')) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @if(isset($leave))
         @method('PUT')

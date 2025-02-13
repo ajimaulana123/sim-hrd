@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="bg-white shadow sm:rounded-lg">
-    <form action="{{ isset($employee) ? route('employees.update', $employee) : route('employees.store') }}" method="POST" class="space-y-8 divide-y divide-gray-200">
+    <form action="{{ isset($employee) ? secure_url(route('employees.update', $employee)) : secure_url(route('employees.store')) }}" method="POST" class="space-y-8 divide-y divide-gray-200">
         @csrf
         @if(isset($employee))
         @method('PUT')

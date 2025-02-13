@@ -90,7 +90,7 @@
                         </div>
                         <div class="ml-3">
                             <p class="text-sm font-medium text-gray-700">{{ auth()->user()->name }}</p>
-                            <form method="POST" action="{{ route('logout') }}">
+                            <form method="POST" action="{{ secure_url(route('logout')) }}">
                                 @csrf
                                 <button type="submit" class="text-xs font-medium text-gray-500 hover:text-gray-700">Logout</button>
                             </form>
