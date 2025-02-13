@@ -24,7 +24,7 @@ RUN yarn && yarn run build
 # Jangan jalankan jika bukan initialization
 
 # Generate application key
-#RUN php artisan key:generate --force
+RUN php artisan key:generate --force
 
 # Run migrations to create necessary tables
 #RUN php artisan migrate --force
