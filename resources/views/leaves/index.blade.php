@@ -22,7 +22,7 @@ Daftar Pengajuan Cuti
 
         <!-- Filters -->
         <div class="mt-6">
-            <form action="{{ route('leaves.index') }}" method="GET" class="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
+            <form action="{{ secure_url(route('leaves.index')) }}" method="GET" class="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
                 <div>
                     <label for="search" class="block text-sm font-medium text-gray-700">Cari</label>
                     <div class="mt-1">

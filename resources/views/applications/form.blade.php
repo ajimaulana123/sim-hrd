@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="bg-white shadow sm:rounded-lg">
-    <form action="{{ isset($application) ? route('applications.update', $application) : route('applications.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ isset($application) ? secure_url(route('applications.update', $application)) : secure_url(route('applications.store')) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @if(isset($application))
         @method('PUT')

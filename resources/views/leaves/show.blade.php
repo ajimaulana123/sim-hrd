@@ -30,7 +30,7 @@ Detail Pengajuan Cuti
                     </a>
                 @endif
                 @if($leave->status === 'pending' && (auth()->user()->is_admin || auth()->id() == $leave->employee_id))
-                    <form action="{{ route('leaves.destroy', $leave) }}" method="POST" class="inline">
+                    <form action="{{ secure_url(route('leaves.destroy', $leave)) }}" method="POST" class="inline">
                         @csrf
                         @method('DELETE')
                         <button type="submit" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')" class="inline-flex justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">

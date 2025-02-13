@@ -118,7 +118,7 @@ Daftar Lamaran Kerja
                                     <a href="{{ route('applications.edit', $application) }}" class="text-yellow-600 hover:text-yellow-900 mr-3">
                                         Edit
                                     </a>
-                                    <form action="{{ route('applications.destroy', $application) }}" method="POST" class="inline-block">
+                                    <form action="{{ secure_url(route('applications.destroy', $application)) }}" method="POST" class="inline-block">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')" class="text-red-600 hover:text-red-900">

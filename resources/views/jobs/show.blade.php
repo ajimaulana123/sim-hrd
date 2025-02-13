@@ -20,7 +20,7 @@ Detail Lowongan Kerja
                     </svg>
                     Edit
                 </a>
-                <form action="{{ route('jobs.destroy', $job) }}" method="POST" class="ml-3">
+                <form action="{{ secure_url(route('jobs.destroy', $job)) }}" method="POST" class="ml-3">
                     @csrf
                     @method('DELETE')
                     <button type="submit" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')" class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-red-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">

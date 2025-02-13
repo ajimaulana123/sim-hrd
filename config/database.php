@@ -44,12 +44,12 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
-            'url' => env('DB_URL', "mysql://hrd_softremain:546e01c749c8a9f91151867a5f853118e9b435d6@a5uqf.h.filess.io:3307/hrd_softremain"),
-            'host' => env('DB_HOST', 'a5uqf.h.filess.io'),
+            'url' => env('DB_URL', "mysql://staginghrd_letterwolf:05a93a132718e68f2498c852c6869ccc8a1cce68@f6riv.h.filess.io:3307/staginghrd_letterwolf"),
+            'host' => env('DB_HOST', 'f6riv.h.filess.io'),
             'port' => env('DB_PORT', '3307'),
-            'database' => env('DB_DATABASE', 'hrd_softremain'),
-            'username' => env('DB_USERNAME', 'hrd_softremain'),
-            'password' => env('DB_PASSWORD', '546e01c749c8a9f91151867a5f853118e9b435d6'),
+            'database' => env('DB_DATABASE', 'staginghrd_letterwolf'),
+            'username' => env('DB_USERNAME', 'staginghrd_letterwolf'),
+            'password' => env('DB_PASSWORD', '05a93a132718e68f2498c852c6869ccc8a1cce68'),
             'unix_socket' => env('DB_SOCKET', ''),
             'charset' => env('DB_CHARSET', 'utf8mb4'),
             'collation' => env('DB_COLLATION', 'utf8mb4_unicode_ci'),

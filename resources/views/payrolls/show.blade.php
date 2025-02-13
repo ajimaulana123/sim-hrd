@@ -21,14 +21,14 @@ Detail Penggajian
                 <a href="{{ route('payrolls.edit', $payroll) }}" class="inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                     Edit
                 </a>
-                <form action="{{ route('payrolls.destroy', $payroll) }}" method="POST" class="inline-block ml-3">
+                <form action="{{ secure_url(route('payrolls.destroy', $payroll)) }}" method="POST" class="inline-block ml-3">
                     @csrf
                     @method('DELETE')
                     <button type="submit" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')" class="inline-flex items-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2">
                         Hapus
                     </button>
                 </form>
-                <a href="{{ route('payrolls.print', $payroll) }}" target="_blank" class="ml-3 inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                <a href="{{ secure_url(route('payrolls.print', $payroll)) }}" target="_blank" class="ml-3 inline-flex items-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                     Cetak Slip
                 </a>
             </div>

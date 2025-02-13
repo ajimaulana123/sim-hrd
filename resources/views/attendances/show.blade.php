@@ -27,7 +27,7 @@ Detail Kehadiran
                     </svg>
                     Edit
                 </a>
-                <form action="{{ route('attendances.destroy', $attendance) }}" method="POST" class="inline-block">
+                <form action="{{ secure_url(route('attendances.destroy', $attendance)) }}" method="POST" class="inline-block">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="inline-flex items-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" onclick="return confirm('Apakah Anda yakin ingin menghapus data ini?')">
