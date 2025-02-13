@@ -20,10 +20,10 @@ RUN composer install
 RUN yarn && yarn run build
 
 # Generate application key
-RUN php artisan key:generate --force
+# RUN php artisan key:generate --force
 
 # Run migrations to create necessary tables
-RUN php artisan migrate --force
+# RUN php artisan migrate --force
 
 # RUN php artisan db:seed --force
 
