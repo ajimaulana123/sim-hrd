@@ -28,8 +28,6 @@ RUN php artisan key:generate --force
 # Run migrations to create necessary tables
 RUN php artisan migrate --force
 
-RUN php artisan db:seed --force
-
 RUN php artisan storage:link
 
 # Generate cache Laravel
