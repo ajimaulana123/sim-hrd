@@ -26,11 +26,11 @@ RUN yarn && yarn run build
 RUN php artisan key:generate --force
 
 # Run migrations to create necessary tables
-RUN php artisan migrate --force
+# RUN php artisan migrate --force
 
 # RUN php artisan db:seed --force
 
-RUN php artisan storage:link
+# RUN php artisan storage:link
 
 # Generate cache Laravel
 RUN php artisan config:cache && \
