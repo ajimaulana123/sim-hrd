@@ -51,9 +51,9 @@ return [
     | the application so that it's available within Artisan commands.
     |
     */
-    'url' => env('APP_URL', 'https://website-hrd-production.up.railway.app/'),
+    'url' => env('APP_URL', 'https://sim-hrd-pt-ppi.up.railway.app/'),
 
-    'asset_url' => env('ASSET_URL', 'https://website-hrd-production.up.railway.app/'),
+    'asset_url' => env('ASSET_URL', 'https://sim-hrd-pt-ppi.up.railway.app/'),
 
     /*
     |--------------------------------------------------------------------------
