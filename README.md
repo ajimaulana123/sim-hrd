@@ -38,6 +38,21 @@ Sistem manajemen HR untuk mengelola data karyawan, absensi, penggajian, rekrutme
 
 ## Setup
 
+### Setup cepat
+
+1. Clone repository
+```bash
+git clone [URL_REPOSITORY]
+cd [nama_folder]
+```
+
+2. Jalankan
+```bash
+.setup.sh
+```
+
+### Setup manual
+
 1. Clone repository
 ```bash
 git clone [URL_REPOSITORY]
