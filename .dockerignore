@@ -1,0 +1,14 @@
+/node_modules
+/vendor
+.git
+.gitignore
+.env
+.dockerignore
+Dockerfile
+docker-compose.yml
+README.md
+storage/framework/cache/**
+storage/framework/sessions/**
+storage/framework/views/**
+storage/logs/**
+*.log
