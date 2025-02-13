@@ -11,13 +11,10 @@ RUN npm i -g yarn
 
 RUN php -m | grep mbstring
 WORKDIR /app
-COPY .env.example .env.example
-COPY . /app
-RUN cp .env.example .env
-RUN composer install
 
-RUN sed -i 's/DB_CONNECTION=mysql/DB_CONNECTION=sqlite/' .env
-RUN sed -i 's|APP_URL=http://localhost|APP_URL=https://website-hrd-production.up.railway.app/|' .env
+COPY . /app
+
+RUN composer install
 
 # Run Vite build
 RUN yarn && yarn run build
