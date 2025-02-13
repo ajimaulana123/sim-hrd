@@ -16,15 +16,16 @@ RUN cp .env.example .env
 RUN composer install
 
 RUN sed -i 's/DB_CONNECTION=mysql/DB_CONNECTION=sqlite/' .env
-RUN sed -i 's|APP_URL=http://localhost|APP_URL=https://website-hrd-production.up.railway.app/|' .env
+RUN sed -i 's|APP_URL=http://localhost|APP_URL=https://staging-sim-hrd-pt-ppi.up.railway.app/|' .env
 
 # Run Vite build
 RUN yarn && yarn run build
 
-# Jangan jalankan jika bukan initialization
 
 # Generate application key
 RUN php artisan key:generate --force
+
+# Jangan jalankan jika bukan initialization
 
 # Run migrations to create necessary tables
 #RUN php artisan migrate --force
