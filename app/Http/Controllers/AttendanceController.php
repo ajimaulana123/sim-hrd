@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Attendance;
 use App\Models\Employee;
+use App\Models\Department;
 use Illuminate\Http\Request;
 
 class AttendanceController extends Controller
@@ -11,19 +12,40 @@ class AttendanceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $attendances = Attendance::with('employee')
-            ->when(request('date'), function ($query, $date) {
-                $query->whereDate('date', $date);
-            })
-            ->when(request('status'), function ($query, $status) {
-                $query->where('status', $status);
-            })
-            ->latest()
-            ->paginate(10);
+        $query = Attendance::with('employee');
 
-        return view('attendances.index', compact('attendances'));
+        // Filter by employee name
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->whereHas('employee', function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                  ->orWhere('employee_id', 'like', "%{$search}%");
+            });
+        }
+
+        // Filter by date
+        if ($request->filled('date')) {
+            $query->whereDate('date', $request->date);
+        }
+
+        // Filter by status
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Filter by department
+        if ($request->filled('department')) {
+            $query->whereHas('employee', function ($q) use ($request) {
+                $q->where('department', $request->department);
+            });
+        }
+
+        $attendances = $query->latest()->paginate(10)->withQueryString();
+        $departments = Employee::select('department')->distinct()->pluck('department');
+
+        return view('attendances.index', compact('attendances', 'departments'));
     }
 
     /**
