@@ -24,63 +24,68 @@ Daftar Penggajian
         </div>
     </div>
 
-    <!-- Search & Filters -->
-    <div class="border-b border-gray-200 bg-gray-50 px-4 py-4 sm:px-6">
-        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between">
-            <div class="flex flex-1 items-center space-x-4">
-                <div class="w-full sm:max-w-xs">
-                    <label for="search" class="sr-only">Cari</label>
-                    <div class="relative">
-                        <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
-                            <svg class="h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                                <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
+    <!-- Filter Section -->
+    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
+        <div class="p-6 bg-white border-b border-gray-200">
+            <form action="{{ route('payrolls.index') }}" method="GET">
+                <div class="flex flex-wrap items-end gap-4">
+                    <!-- Search -->
+                    <div class="w-full sm:w-44">
+                        <x-input-label for="search" :value="__('Cari Karyawan')" />
+                        <x-text-input id="search" name="search" type="text" class="mt-1 block w-full" 
+                            :value="request('search')" placeholder="Nama atau ID"/>
+                    </div>
+
+                    <!-- Period Filter -->
+                    <div class="w-full sm:w-44">
+                        <x-input-label for="period" :value="__('Periode')" />
+                        <input type="month" id="period" name="period" 
+                               class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500"
+                               value="{{ request('period') }}"
+                               placeholder="YYYY-MM">
+                    </div>
+
+                    <!-- Status Filter -->
+                    <div class="w-full sm:w-36">
+                        <x-input-label for="status" :value="__('Status')" />
+                        <select id="status" name="status" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                            <option value="">Semua Status</option>
+                            <option value="draft" {{ request('status') == 'draft' ? 'selected' : '' }}>Draft</option>
+                            <option value="pending" {{ request('status') == 'pending' ? 'selected' : '' }}>Pending</option>
+                            <option value="approved" {{ request('status') == 'approved' ? 'selected' : '' }}>Approved</option>
+                            <option value="paid" {{ request('status') == 'paid' ? 'selected' : '' }}>Paid</option>
+                        </select>
+                    </div>
+
+                    <!-- Department Filter -->
+                    <div class="w-full sm:w-44">
+                        <x-input-label for="department" :value="__('Departemen')" />
+                        <select id="department" name="department" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                            <option value="">Semua Departemen</option>
+                            @foreach($departments as $dept)
+                                <option value="{{ $dept }}" {{ request('department') == $dept ? 'selected' : '' }}>
+                                    {{ $dept }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <!-- Filter Buttons -->
+                    <div class="flex space-x-2">
+                        <button type="submit" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                            <svg class="-ml-0.5 mr-1.5 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
                             </svg>
-                        </div>
-                        <input type="text" name="search" id="search" class="block w-full rounded-md border-0 py-1.5 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" placeholder="Cari karyawan...">
+                            {{ __('Filter') }}
+                        </button>
+                        @if(request()->hasAny(['search', 'period', 'status', 'department']))
+                            <a href="{{ route('payrolls.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-600 focus:bg-gray-600 active:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                {{ __('Reset') }}
+                            </a>
+                        @endif
                     </div>
                 </div>
-                <div class="w-full sm:max-w-xs">
-                    <select name="month" id="month" class="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                        <option value="">Pilih Bulan</option>
-                        <option value="01">Januari</option>
-                        <option value="02">Februari</option>
-                        <option value="03">Maret</option>
-                        <option value="04">April</option>
-                        <option value="05">Mei</option>
-                        <option value="06">Juni</option>
-                        <option value="07">Juli</option>
-                        <option value="08">Agustus</option>
-                        <option value="09">September</option>
-                        <option value="10">Oktober</option>
-                        <option value="11">November</option>
-                        <option value="12">Desember</option>
-                    </select>
-                </div>
-                <div class="w-full sm:max-w-xs">
-                    <select name="year" id="year" class="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                        <option value="">Pilih Tahun</option>
-                        @for($i = date('Y'); $i >= date('Y') - 5; $i--)
-                        <option value="{{ $i }}">{{ $i }}</option>
-                        @endfor
-                    </select>
-                </div>
-                <div class="w-full sm:max-w-xs">
-                    <select name="status" id="status" class="block w-full rounded-md border-0 py-1.5 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6">
-                        <option value="">Semua Status</option>
-                        <option value="pending">Pending</option>
-                        <option value="approved">Approved</option>
-                        <option value="paid">Paid</option>
-                    </select>
-                </div>
-            </div>
-            <div class="mt-4 sm:mt-0">
-                <button type="button" class="inline-flex items-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-                    <svg class="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
-                    </svg>
-                    Filter
-                </button>
-            </div>
+            </form>
         </div>
     </div>
 
@@ -119,7 +124,25 @@ Daftar Penggajian
                                     </div>
                                 </div>
                             </td>
-                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ $payroll->month }}/{{ $payroll->year }}</td>
+                            <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
+                                @php
+                                    $monthNames = [
+                                        '01' => 'Januari',
+                                        '02' => 'Februari',
+                                        '03' => 'Maret',
+                                        '04' => 'April',
+                                        '05' => 'Mei',
+                                        '06' => 'Juni',
+                                        '07' => 'Juli',
+                                        '08' => 'Agustus',
+                                        '09' => 'September',
+                                        '10' => 'Oktober',
+                                        '11' => 'November',
+                                        '12' => 'Desember'
+                                    ];
+                                @endphp
+                                {{ $monthNames[$payroll->month] ?? '' }} {{ $payroll->year }}
+                            </td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Rp {{ number_format($payroll->base_salary, 0, ',', '.') }}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Rp {{ number_format($payroll->allowances, 0, ',', '.') }}</td>
                             <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Rp {{ number_format($payroll->deductions, 0, ',', '.') }}</td>

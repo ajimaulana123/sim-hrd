@@ -28,6 +28,8 @@ class Payroll extends Model
     ];
 
     protected $casts = [
+        'period' => 'date',
+        'payment_date' => 'date',
         'base_salary' => 'decimal:2',
         'allowances' => 'decimal:2',
         'deductions' => 'decimal:2',
@@ -36,8 +38,7 @@ class Payroll extends Model
         'tax' => 'decimal:2',
         'bpjs_tk' => 'decimal:2',
         'bpjs_kes' => 'decimal:2',
-        'net_salary' => 'decimal:2',
-        'payment_date' => 'date'
+        'net_salary' => 'decimal:2'
     ];
 
     // Relasi

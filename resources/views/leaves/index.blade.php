@@ -20,36 +20,61 @@ Daftar Pengajuan Cuti
             </div>
         </div>
 
-        <!-- Filters -->
-        <div class="mt-6">
-            <form action="{{ route('leaves.index') }}" method="GET" class="grid grid-cols-1 gap-y-6 sm:grid-cols-3 sm:gap-x-4">
-                <div>
-                    <label for="search" class="block text-sm font-medium text-gray-700">Cari</label>
-                    <div class="mt-1">
-                        <input type="text" name="search" id="search" value="{{ request('search') }}" placeholder="Cari nama karyawan..." class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+        <!-- Filter Section -->
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg mb-4">
+            <div class="p-6 bg-white border-b border-gray-200">
+                <form action="{{ route('leaves.index') }}" method="GET">
+                    <div class="flex flex-wrap items-end gap-4">
+                        <!-- Search -->
+                        <div class="w-full sm:w-44">
+                            <x-input-label for="search" :value="__('Cari Karyawan')" />
+                            <x-text-input id="search" name="search" type="text" class="mt-1 block w-full" 
+                                :value="request('search')" placeholder="Nama atau ID"/>
+                        </div>
+
+                        <!-- Leave Type Filter -->
+                        <div class="w-full sm:w-44">
+                            <x-input-label for="type" :value="__('Tipe Cuti')" />
+                            <select id="type" name="type" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                                <option value="">Semua Tipe</option>
+                                @foreach($types as $value => $label)
+                                    <option value="{{ $value }}" {{ request('type') == $value ? 'selected' : '' }}>
+                                        {{ $label }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Status Filter -->
+                        <div class="w-full sm:w-36">
+                            <x-input-label for="status" :value="__('Status')" />
+                            <select id="status" name="status" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm">
+                                <option value="">Semua Status</option>
+                                @foreach($statuses as $value => $label)
+                                    <option value="{{ $value }}" {{ request('status') == $value ? 'selected' : '' }}>
+                                        {{ $label }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <!-- Filter Buttons -->
+                        <div class="flex space-x-2">
+                            <button type="submit" class="inline-flex items-center px-4 py-2 bg-indigo-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                <svg class="-ml-0.5 mr-1.5 h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
+                                </svg>
+                                {{ __('Filter') }}
+                            </button>
+                            @if(request()->hasAny(['search', 'type', 'status']))
+                                <a href="{{ route('leaves.index') }}" class="inline-flex items-center px-4 py-2 bg-gray-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-600 focus:bg-gray-600 active:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                    {{ __('Reset') }}
+                                </a>
+                            @endif
+                        </div>
                     </div>
-                </div>
-
-                <div>
-                    <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
-                    <select id="status" name="status" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                        <option value="">Semua Status</option>
-                        @foreach(['pending' => 'Pending', 'approved' => 'Disetujui', 'rejected' => 'Ditolak'] as $value => $label)
-                        <option value="{{ $value }}" {{ request('status') == $value ? 'selected' : '' }}>{{ $label }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div>
-                    <label for="type" class="block text-sm font-medium text-gray-700">Tipe Cuti</label>
-                    <select id="type" name="type" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                        <option value="">Semua Tipe</option>
-                        @foreach(['annual' => 'Tahunan', 'sick' => 'Sakit', 'maternity' => 'Melahirkan', 'paternity' => 'Cuti Ayah', 'marriage' => 'Menikah', 'unpaid' => 'Tanpa Bayaran', 'important_reason' => 'Alasan Penting', 'other' => 'Lainnya'] as $value => $label)
-                        <option value="{{ $value }}" {{ request('type') == $value ? 'selected' : '' }}>{{ $label }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
 
         <!-- Leave Requests Table -->

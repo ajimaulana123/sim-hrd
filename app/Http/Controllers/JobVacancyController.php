@@ -30,9 +30,23 @@ class JobVacancyController extends Controller
                 $query->where('status', $status);
             })
             ->latest()
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
 
-        return view('jobs.index', compact('vacancies'));
+        // Get data for filters
+        $departments = JobVacancy::select('department')->distinct()->pluck('department');
+        $employmentTypes = [
+            'full_time' => 'Full Time',
+            'part_time' => 'Part Time',
+            'contract' => 'Contract',
+            'internship' => 'Internship'
+        ];
+        $statuses = [
+            'active' => 'Active',
+            'inactive' => 'Inactive'
+        ];
+
+        return view('jobs.index', compact('vacancies', 'departments', 'employmentTypes', 'statuses'));
     }
 
     /**

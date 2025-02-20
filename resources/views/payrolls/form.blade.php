@@ -39,39 +39,15 @@
                     </div>
 
                     <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-                        <label for="month" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Bulan</label>
+                        <label for="period" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Periode</label>
                         <div class="mt-1 sm:col-span-2 sm:mt-0">
-                            <select name="month" id="month" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                <option value="">Pilih Bulan</option>
-                                <option value="01" {{ old('month', $payroll->month ?? '') == '01' ? 'selected' : '' }}>Januari</option>
-                                <option value="02" {{ old('month', $payroll->month ?? '') == '02' ? 'selected' : '' }}>Februari</option>
-                                <option value="03" {{ old('month', $payroll->month ?? '') == '03' ? 'selected' : '' }}>Maret</option>
-                                <option value="04" {{ old('month', $payroll->month ?? '') == '04' ? 'selected' : '' }}>April</option>
-                                <option value="05" {{ old('month', $payroll->month ?? '') == '05' ? 'selected' : '' }}>Mei</option>
-                                <option value="06" {{ old('month', $payroll->month ?? '') == '06' ? 'selected' : '' }}>Juni</option>
-                                <option value="07" {{ old('month', $payroll->month ?? '') == '07' ? 'selected' : '' }}>Juli</option>
-                                <option value="08" {{ old('month', $payroll->month ?? '') == '08' ? 'selected' : '' }}>Agustus</option>
-                                <option value="09" {{ old('month', $payroll->month ?? '') == '09' ? 'selected' : '' }}>September</option>
-                                <option value="10" {{ old('month', $payroll->month ?? '') == '10' ? 'selected' : '' }}>Oktober</option>
-                                <option value="11" {{ old('month', $payroll->month ?? '') == '11' ? 'selected' : '' }}>November</option>
-                                <option value="12" {{ old('month', $payroll->month ?? '') == '12' ? 'selected' : '' }}>Desember</option>
-                            </select>
-                            @error('month')
-                            <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="sm:grid sm:grid-cols-3 sm:items-start sm:gap-4 sm:border-t sm:border-gray-200 sm:pt-5">
-                        <label for="year" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">Tahun</label>
-                        <div class="mt-1 sm:col-span-2 sm:mt-0">
-                            <select name="year" id="year" class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                                <option value="">Pilih Tahun</option>
-                                @for($i = date('Y'); $i >= date('Y') - 5; $i--)
-                                <option value="{{ $i }}" {{ old('year', $payroll->year ?? '') == $i ? 'selected' : '' }}>{{ $i }}</option>
-                                @endfor
-                            </select>
-                            @error('year')
+                            <input type="month" 
+                                   id="period" 
+                                   name="period" 
+                                   class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                   value="{{ old('period', isset($payroll) ? $payroll->period->format('Y-m') : '') }}"
+                                   required>
+                            @error('period')
                             <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>

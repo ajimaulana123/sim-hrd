@@ -11,9 +11,19 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        // Seed departments terlebih dahulu
         $this->call([
+            DepartmentSeeder::class,
             AdminSeeder::class,
         ]);
+
+        // Buat departments jika belum ada
+        if (\App\Models\Department::count() === 0) {
+            \App\Models\Department::create([
+                'name' => 'Human Resources',
+                'description' => 'HR Department'
+            ]);
+        }
 
         // Create regular users
         \App\Models\User::factory(5)->create();

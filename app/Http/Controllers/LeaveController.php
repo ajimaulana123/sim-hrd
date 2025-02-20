@@ -15,15 +15,13 @@ class LeaveController extends Controller
      */
     public function index()
     {
-        $leaves = Leave::with(['employee', 'approver'])
+        $leaves = Leave::query()
+            ->with('employee')
             ->when(request('search'), function ($query, $search) {
                 $query->whereHas('employee', function ($q) use ($search) {
                     $q->where('name', 'like', "%{$search}%")
                         ->orWhere('employee_id', 'like', "%{$search}%");
                 });
-            })
-            ->when(request('employee_id'), function ($query, $employeeId) {
-                $query->where('employee_id', $employeeId);
             })
             ->when(request('type'), function ($query, $type) {
                 $query->where('type', $type);
@@ -32,11 +30,27 @@ class LeaveController extends Controller
                 $query->where('status', $status);
             })
             ->latest()
-            ->paginate(10);
+            ->paginate(10)
+            ->withQueryString();
+
+        // Data untuk filter
+        $types = [
+            'annual' => 'Cuti Tahunan',
+            'sick' => 'Sakit',
+            'maternity' => 'Melahirkan',
+            'unpaid' => 'Cuti Tanpa Gaji',
+            'other' => 'Lainnya'
+        ];
+        
+        $statuses = [
+            'pending' => 'Pending',
+            'approved' => 'Disetujui',
+            'rejected' => 'Ditolak'
+        ];
 
         $employees = Employee::active()->get();
 
-        return view('leaves.index', compact('leaves', 'employees'));
+        return view('leaves.index', compact('leaves', 'employees', 'types', 'statuses'));
     }
 
     /**
@@ -44,7 +58,15 @@ class LeaveController extends Controller
      */
     public function create()
     {
+        // Cek apakah ada karyawan aktif
         $employees = Employee::active()->get();
+        
+        if ($employees->isEmpty()) {
+            return redirect()
+                ->route('leaves.index')
+                ->with('error', 'Tidak dapat mengajukan cuti karena belum ada data karyawan aktif');
+        }
+
         return view('leaves.form', compact('employees'));
     }
 
