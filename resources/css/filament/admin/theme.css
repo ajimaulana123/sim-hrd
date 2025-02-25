@@ -1,0 +1,100 @@
+@import '../../../../vendor/filament/filament/resources/css/theme.css';
+
+/* Custom Styles */
+:root {
+    --sidebar-width: 20rem;
+    --collapsed-sidebar-width: 5.4rem;
+}
+
+/* Dashboard Cards */
+.fi-wi {
+    @apply rounded-xl border-0 bg-white/50 backdrop-blur-xl dark:bg-gray-900/50;
+}
+
+/* Stats Overview */
+.fi-wi-stats-overview {
+    @apply gap-6;
+}
+
+.fi-wi-stats-overview-stat {
+    @apply rounded-xl border-0 bg-white/50 backdrop-blur-xl transition-all duration-200 hover:scale-105 dark:bg-gray-900/50;
+}
+
+/* Charts */
+.fi-wi-chart {
+    @apply rounded-xl border-0 bg-white/50 backdrop-blur-xl p-6 transition-all duration-200 hover:scale-105 dark:bg-gray-900/50;
+}
+
+/* Navigation */
+.fi-sidebar {
+    @apply bg-white/50 backdrop-blur-xl dark:bg-gray-900/50;
+}
+
+.fi-main-ctn {
+    @apply bg-gradient-to-br from-amber-50 to-amber-100 dark:from-gray-900 dark:to-gray-800;
+}
+
+/* Tables */
+.fi-ta-ctn {
+    @apply rounded-xl border-0 bg-white/50 backdrop-blur-xl dark:bg-gray-900/50;
+}
+
+/* Forms */
+.fi-fo-component-ctn {
+    @apply rounded-xl border-0 bg-white/50 backdrop-blur-xl dark:bg-gray-900/50;
+}
+
+/* Buttons */
+.fi-btn {
+    @apply rounded-xl transition-all duration-200 hover:scale-105;
+}
+
+/* Modal */
+.fi-modal-window {
+    @apply rounded-xl bg-white/95 backdrop-blur-xl dark:bg-gray-900/95;
+}
+
+/* Header */
+.fi-header {
+    @apply bg-transparent;
+}
+
+/* Top Navigation */
+.fi-topbar {
+    @apply bg-white/50 backdrop-blur-xl dark:bg-gray-900/50;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply rounded bg-amber-500/50;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    @apply bg-amber-600;
+}
+
+/* Animations */
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+.fi-wi-stats-overview-stat {
+    animation: float 6s ease-in-out infinite;
+} 
